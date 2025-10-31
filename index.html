@@ -57,12 +57,13 @@
   #result { display: none; text-align: center; animation: fadeIn 0.4s ease; }
   #result h2 { font-size: 1.6rem; margin-bottom: 0.5rem; }
   #result p { font-size: 1.1rem; line-height: 1.4; }
-  .link-btn {
-    margin-top: 1.2rem; display: inline-block; background: #007aff;
-    color: white; padding: 12px 20px; border-radius: 8px;
-    text-decoration: none; font-weight: 600;
+  .link-btn, .sms-btn {
+    margin-top: 1.2rem; display: inline-block; padding: 12px 20px;
+    border-radius: 8px; text-decoration: none; font-weight: 600; color: white;
   }
-  .link-btn:hover { opacity: 0.9; }
+  .link-btn { background: #007aff; }
+  .sms-btn { background: #34c759; }
+  .link-btn:hover, .sms-btn:hover { opacity: 0.9; }
 </style>
 </head>
 <body>
@@ -211,7 +212,7 @@ function showResult() {
   if (arbete === "lite") belagd++;
   if (arbete === "mycket") gjut++, kol++;
 
-  let title = "", desc = "", emoji = "", link = "";
+  let title = "", desc = "", emoji = "", link = "", smsText = "";
 
   if (belagd > gjut && belagd > kol) {
     emoji = "🧈";
@@ -230,10 +231,13 @@ function showResult() {
     link = "https://bagarenochkocken.se/de-buyer-mineral-b-element-stekpanna/";
   }
 
+  smsText = encodeURIComponent(`${emoji} Jag passar bäst för en ${title}!`);
+
   result.innerHTML = `
     <h2>${emoji} ${title}</h2>
     <p>${desc}</p>
-    <a class="link-btn" href="${link}" target="_blank">🔗 Se rekommenderad panna hos Bagaren & Kocken</a>
+    <a class="link-btn" href="${link}" target="_blank">🔗 Se rekommenderad panna hos Bagaren & Kocken</a><br>
+    <a class="sms-btn" href="sms:&body=${smsText}">📱 Dela mitt resultat via SMS</a>
   `;
 }
 </script>
